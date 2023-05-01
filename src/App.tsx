@@ -1,8 +1,8 @@
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 
-export const App = () => {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -11,10 +11,4 @@ export const App = () => {
   );
 };
 
-export const WrappedApp = () => {
-  return (
-    <Router>
-      <App />
-    </Router>
-  );
-};
+export default App;
