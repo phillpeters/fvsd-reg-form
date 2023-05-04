@@ -2,53 +2,15 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 
-import { studentInfo, otherInfo } from '../data/studentInfo';
+import CustomStep from '../components/CustomStep/CustomStep';
 
-// const steps = [
-//   {
-//     label: legalName.label,
-//     description:
-//       'An ad group contains one or more ads which target a shared set of keywords.'
-//   },
-//   {
-//     label: akaName.label,
-//     description:
-//       'An ad group contains one or more ads which target a shared set of keywords.'
-//   },
-//   {
-//     label: mailingAddress.label,
-//     description:
-//       'An ad group contains one or more ads which target a shared set of keywords.'
-//   },
-//   {
-//     label: physicalAddress.label,
-//     description:
-//       'An ad group contains one or more ads which target a shared set of keywords.'
-//   },
-//   {
-//     label: dob.label,
-//     description:
-//       'An ad group contains one or more ads which target a shared set of keywords.'
-//   },
-//   {
-//     label: homePhone.label,
-//     description:
-//       'An ad group contains one or more ads which target a shared set of keywords.'
-//   },
-//   {
-//     label: emailAddress.label,
-//     description:
-//       'An ad group contains one or more ads which target a shared set of keywords.'
-//   }
-// ];
+import studentProfile from '../data/studentProfile';
 
 const VerticalLinearStepper = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -66,56 +28,40 @@ const VerticalLinearStepper = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, height: 'auto', overflow: 'hidden' }}>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {studentInfo.map((step, index) => (
-          <Step key={step.label}>
-            <StepLabel
-              optional={
-                index === 2 ? (
-                  <Typography variant="caption">Last step</Typography>
-                ) : null
-              }
-            >
-              {step.label}
-            </StepLabel>
-            <StepContent>
-              <Typography>{`Current Record: ${step.value}`}</Typography>
-              <Box>
-                <Typography>Corrections</Typography>
-                <TextField variant="outlined" />
-              </Box>
-              <Box sx={{ mb: 2 }}>
-                <div>
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    {index === studentInfo.length - 1 ? 'Finish' : 'Continue'}
-                  </Button>
-                  <Button
-                    disabled={index === 0}
-                    onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
-                  >
-                    Back
-                  </Button>
-                </div>
-              </Box>
-            </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-      {activeStep === studentInfo.length && (
-        <Paper square elevation={0} sx={{ p: 3 }}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-            Reset
-          </Button>
-        </Paper>
-      )}
-    </Box>
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Student Registration
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Box sx={{ mt: 1, maxWidth: 400, height: 'auto', overflow: 'hidden' }}>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {studentProfile.map((step, index, array) => (
+            <CustomStep
+              key={step.label}
+              index={index}
+              label={step.label}
+              fields={step.fields}
+              handleNext={() => handleNext()}
+              handleBack={() => handleBack()}
+              numSteps={array.length}
+            />
+          ))}
+        </Stepper>
+        {activeStep === studentProfile.length && (
+          <Paper square elevation={0} sx={{ p: 3 }}>
+            <Typography>All steps completed - you&apos;re finished</Typography>
+            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+              Reset
+            </Button>
+          </Paper>
+        )}
+      </Box>
+    </>
   );
 };
 
