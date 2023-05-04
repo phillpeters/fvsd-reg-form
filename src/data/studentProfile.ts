@@ -1,6 +1,6 @@
 const profile = [
   {
-    label: 'Student Information',
+    section: 'Student Information',
     fields: [
       {
         label: 'Student Legal Name',
@@ -33,7 +33,7 @@ const profile = [
     ]
   },
   {
-    label: 'Other Information',
+    section: 'Other Information',
     fields: [
       {
         label: 'Medical Considerations',

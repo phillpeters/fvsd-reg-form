@@ -42,9 +42,9 @@ const VerticalLinearStepper = () => {
         <Stepper activeStep={activeStep} orientation="vertical">
           {studentProfile.map((step, index, array) => (
             <CustomStep
-              key={step.label}
+              key={step.section}
               index={index}
-              label={step.label}
+              label={step.section}
               fields={step.fields}
               handleNext={() => handleNext()}
               handleBack={() => handleBack()}
